@@ -1,0 +1,8 @@
+@import '../../../utilities/vars.scss';
+
+.lists-container {
+    margin: 50px 50px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}

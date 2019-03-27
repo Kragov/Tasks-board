@@ -1,0 +1,22 @@
+@import "../../utilities/vars.scss";
+
+.board-name {
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 150px;
+    height: 80px;
+    background-color: #9fe7a4;
+    text-align: center;
+    border-radius: $Brad;
+    box-shadow: $Bshad;
+
+    span {
+        display: block;
+        padding-top: 25px;
+        font-size: 1.7em;
+        color: #fff;
+        font-family: $OSans;
+        text-shadow: 0 0 3px #000;
+
+    }
+}

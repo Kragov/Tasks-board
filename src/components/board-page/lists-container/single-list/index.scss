@@ -1,0 +1,30 @@
+@import '../../../../utilities/vars.scss';
+
+.droppable {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+}
+
+.list-container {
+    margin: 20px;
+    padding: 30px;
+    min-height: 150px;
+    box-shadow: $Bshad;
+    font-family: $OSans;
+
+    .list-name {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 900;
+        border-bottom: 1px solid #000;
+    }
+
+    .list-input {
+        padding-bottom: 10px;
+        display: flex;
+        flex-flow: row;
+        border-bottom: 1px solid #000;
+    }
+}

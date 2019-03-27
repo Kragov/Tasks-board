@@ -1,0 +1,79 @@
+@import "../create-board-btn/index.scss";
+@import "../../../utilities/vars.scss";
+
+.create-board-menu {
+    @extend .create-board-btn;
+
+    .menu-header {
+        border-bottom: 1px solid #fff;
+        padding-bottom: 30px;
+
+        h3 {
+            display: inline;
+            padding-right: 30px;
+        }
+
+        i {
+            padding-left: 20px;
+            color: #fff;
+            transition: 0.5s;
+            text-shadow: none;
+
+            &:hover {
+                transform: scale(1.5);
+                transition: 0.5s;
+            }
+        }
+    }
+
+    .menu-input {
+        padding-top: 40px;
+
+        span {
+            color: #fff;
+        }
+
+        input {
+            margin-top: 20px;
+            height: 30px;
+            font-size: 20px;
+        }
+
+        .submit-btns {
+            margin-top: 30px;
+
+            .cancel-btn {
+                padding-right: 30px;
+                background: none;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                color: #fff;
+                text-shadow: 0 0 3px #000;
+                font-size: 1.3em;
+                transition: 0.5s;
+
+                &:hover {
+                    color: #4dc755;
+                }
+            }
+
+            .create-btn {
+                margin-left: 30px;
+                padding: 20px;
+                border: none;
+                outline: none;
+                font-size: 1.3em;
+                box-shadow: $Bshad;
+                transition: 0.5s;
+                cursor: pointer;
+
+                &:hover {
+                    transform: scale(1.2);
+                    color: skyblue;
+                    transition: 0.5s;
+                }
+            }
+        }
+    }
+}

@@ -27,11 +27,14 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
         let boards = state.boards.slice();
 
         let board = boards.find(item => item.boardName === payload.boardName);
-        board.lists.push({
-            listId: payload.listName + "-" + board.lists.length,
-            listName: payload.listName,
-            tasks: []
-        });
+        board.lists = [
+            ...board.lists,
+            {
+                listId: payload.listName + "-" + board.lists.length,
+                listName: payload.listName,
+                tasks: []
+            }
+        ];
         localStorage.setItem(
             "state",
             JSON.stringify({
@@ -53,11 +56,14 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
 
         let lists = board.lists;
 
-        lists[payload.keyValue].tasks.push({
-            taskId: payload.taskName + "-" + state.taskIdNumber,
-            taskName: payload.taskName,
-            isDone: false
-        });
+        lists[payload.keyValue].tasks = [
+            ...lists[payload.keyValue].tasks,
+            {
+                taskId: payload.taskName + "-" + state.taskIdNumber,
+                taskName: payload.taskName,
+                isDone: false
+            }
+        ];
 
         localStorage.setItem(
             "state",
@@ -82,12 +88,14 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
 
         let lists = board.lists;
 
-        let tasks = lists[payload.listKey].tasks;
+        let tasks = lists[payload.listKey].tasks.slice();
 
         tasks[payload.taskKey] = {
+            taskId: tasks[payload.taskKey].taskId,
             taskName: tasks[payload.taskKey].taskName,
             isDone: !tasks[payload.taskKey].isDone
         };
+        lists[payload.listKey].tasks = tasks;
         localStorage.setItem(
             "state",
             JSON.stringify({

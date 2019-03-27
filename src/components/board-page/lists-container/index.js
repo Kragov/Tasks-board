@@ -40,7 +40,7 @@ const mapStateToProps = (state, props) => {
     const { lists } = state.boardsReducer.boards.find(
         board => board.boardName === props.boardName
     );
-    return { lists: [...lists] };
+    return { lists };
 };
 
 export default connect(

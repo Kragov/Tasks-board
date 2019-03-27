@@ -50,19 +50,19 @@ class SingleList extends React.Component {
                             ref={provided.innerRef}
                         >
                             {/* <div className="tasks"> */}
-                                {this.props.tasks.map((item, index) => (
-                                    <Task
-                                        boardName={this.props.boardName}
-                                        listName={this.props.listName}
-                                        taskName={item.taskName}
-                                        listKeyValue={this.props.keyValue}
-                                        taskKeyValue={index}
-                                        key={index}
-                                        isDone={item.isDone}
-                                        taskId={item.taskId}
-                                    />
-                                ))}
-                                {provided.placeholder}
+                            {this.props.tasks.map((item, index) => (
+                                <Task
+                                    boardName={this.props.boardName}
+                                    listName={this.props.listName}
+                                    taskName={item.taskName}
+                                    listKeyValue={this.props.keyValue}
+                                    taskKeyValue={index}
+                                    key={index}
+                                    isDone={item.isDone}
+                                    taskId={item.taskId}
+                                />
+                            ))}
+                            {provided.placeholder}
                             {/* </div> */}
                         </div>
                     )}
@@ -76,7 +76,7 @@ const mapStateToProps = (state, props) => {
     const { tasks } = state.boardsReducer.boards.find(
         board => board.boardName === props.boardName
     ).lists[props.keyValue];
-    return { tasks: [...tasks] };
+    return { tasks };
 };
 
 export default connect(

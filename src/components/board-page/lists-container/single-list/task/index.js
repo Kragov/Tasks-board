@@ -13,7 +13,7 @@ class Task extends React.Component {
                 draggableId={this.props.taskId}
                 index={this.props.taskKeyValue}
             >
-                {(provided) => (
+                {provided => (
                     <div
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}

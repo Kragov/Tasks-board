@@ -49,7 +49,6 @@ class SingleList extends React.Component {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {/* <div className="tasks"> */}
                             {this.props.tasks.map((item, index) => (
                                 <Task
                                     boardName={this.props.boardName}
@@ -63,7 +62,6 @@ class SingleList extends React.Component {
                                 />
                             ))}
                             {provided.placeholder}
-                            {/* </div> */}
                         </div>
                     )}
                 </Droppable>

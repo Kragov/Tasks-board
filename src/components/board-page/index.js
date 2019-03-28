@@ -20,7 +20,7 @@ class Board extends React.Component {
                 <div className="board-name">
                     <span>{this.state.boardName}</span>
                 </div>
-                <ListsContainer boardName={this.state.boardName}/>
+                <ListsContainer boardName={this.state.boardName} />
             </>
         );
     }

@@ -3,4 +3,3 @@ export const setCondition = () => {
         type: "CHANGE_CONDITION"
     };
 };
-

@@ -1,6 +1,6 @@
 import React from "react";
 import KeyImage from "./home-btn.svg";
-import {withRouter} from 'react-router'
+import { withRouter } from "react-router";
 
 import "./index.scss";
 

@@ -14,10 +14,8 @@ class ListsContainer extends React.Component {
 
     render() {
         return (
-            <DragDropContext onDragEnd={this.onDragEnd}> 
-            <div className="lists-container">
-                
-                    
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="lists-container">
                     {this.props.lists.map((item, index) => (
                         <SingleList
                             listName={item.listName}
@@ -27,10 +25,9 @@ class ListsContainer extends React.Component {
                             listId={item.listId}
                         />
                     ))}
-                
 
-                <CreateListsContainer boardName={this.props.boardName} />
-            </div>
+                    <CreateListsContainer boardName={this.props.boardName} />
+                </div>
             </DragDropContext>
         );
     }

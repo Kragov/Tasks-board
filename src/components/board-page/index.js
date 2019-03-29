@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import HomeBtn from "../homepage/home-button/";
 import ListsContainer from "./lists-container/";
@@ -9,7 +10,7 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            boardName: this.props.match.params.boardName
+            boardID: this.props.match.params.boardID
         };
     }
 
@@ -17,13 +18,13 @@ class Board extends React.Component {
         return (
             <>
                 <HomeBtn />
+
                 <div className="board-name">
-                    <span>{this.state.boardName}</span>
+                    <span>{this.state.boardID.replace(/([-])\w/, "")}</span>
                 </div>
-                <ListsContainer boardName={this.state.boardName} />
+                <ListsContainer boardID={this.state.boardID} />
             </>
         );
     }
 }
-
 export default Board;

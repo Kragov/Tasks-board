@@ -5,49 +5,41 @@ export const addBoard = boardName => {
     };
 };
 
-export const addList = (boardName, listName) => {
+export const addList = (boardID, listName) => {
     return {
         type: "ADD_LIST_TO_BOARD",
         payload: {
-            boardName,
+            boardID,
             listName
         }
     };
 };
 
-export const addTask = (boardName, taskName, keyValue) => {
+export const addTask = (boardID, taskName, listID) => {
     return {
         type: "ADD_TASK_TO_LIST",
         payload: {
-            boardName,
+            boardID,
             taskName,
-            keyValue
+            listID
         }
     };
 };
 
-export const changeState = (
-    boardName,
-    listName,
-    taskName,
-    listKey,
-    taskKey
-) => {
+export const changeState = (boardID, listID, taskID) => {
     return {
         type: "CHANGE_STATE",
         payload: {
-            boardName,
-            listName,
-            taskName,
-            listKey,
-            taskKey
+            boardID,
+            listID,
+            taskID
         }
     };
 };
 
-export const changePlace = (result, boardName) => {
+export const changePlace = (result, boardID) => {
     return {
         type: "CHANGE_PLACE",
-        payload: { result, boardName }
+        payload: { result, boardID }
     };
 };

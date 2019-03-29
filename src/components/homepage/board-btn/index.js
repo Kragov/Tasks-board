@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 
 class BoardBtn extends React.Component {
     clickHandler = () => {
-        this.props.history.push(`/board${this.props.boardName}`);
+        this.props.history.push(`/board${this.props.boardID}`);
     };
 
     render() {

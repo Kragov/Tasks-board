@@ -27,7 +27,7 @@ ReactDOM.render(
         <Router history={history}>
             <>
                 <Route path="/" exact component={Home} />
-                <Route path="/board:boardName" component={Board} />
+                <Route path="/board:boardID" component={Board} />
             </>
         </Router>
     </Provider>,

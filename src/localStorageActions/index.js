@@ -5,6 +5,5 @@ export const getLocalState = () => {
 };
 
 export const saveStateToLocalStorage = state => {
-    console.log(state);
     localStorage.setItem("state", JSON.stringify(state));
 };

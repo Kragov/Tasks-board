@@ -14,7 +14,7 @@ class CreateListInput extends React.Component {
     }
 
     submitHandler = listName => {
-        this.props.addList(this.props.boardName, listName);
+        this.props.addList(this.props.boardID, listName);
     };
 
     render() {
@@ -35,7 +35,7 @@ class CreateListInput extends React.Component {
                     className="submit"
                     onClick={() => {
                         this.props.addList(
-                            this.props.boardName,
+                            this.props.boardID,
                             this.state.listName
                         );
                     }}

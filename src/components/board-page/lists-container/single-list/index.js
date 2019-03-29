@@ -19,9 +19,9 @@ class SingleList extends React.Component {
     submitHanler = e => {
         e.preventDefault();
         this.props.addTask(
-            this.props.boardName,
+            this.props.boardID,
             this.state.taskName,
-            this.props.keyValue
+            this.props.listID
         );
     };
 
@@ -42,7 +42,7 @@ class SingleList extends React.Component {
                     <input type="submit" />
                 </form>
 
-                <Droppable droppableId={this.props.listId}>
+                <Droppable droppableId={this.props.listID}>
                     {provided => (
                         <div
                             className="droppable"
@@ -51,14 +51,13 @@ class SingleList extends React.Component {
                         >
                             {this.props.tasks.map((item, index) => (
                                 <Task
-                                    boardName={this.props.boardName}
-                                    listName={this.props.listName}
+                                    boardID={this.props.boardID}
+                                    listID={this.props.listID}
+                                    taskID={item.taskID}
                                     taskName={item.taskName}
-                                    listKeyValue={this.props.keyValue}
-                                    taskKeyValue={index}
+                                    indexForDraggable={index}
                                     key={index}
                                     isDone={item.isDone}
-                                    taskId={item.taskId}
                                 />
                             ))}
                             {provided.placeholder}
@@ -72,8 +71,8 @@ class SingleList extends React.Component {
 
 const mapStateToProps = (state, props) => {
     const { tasks } = state.boardsReducer.boards.find(
-        board => board.boardName === props.boardName
-    ).lists[props.keyValue];
+        board => board.boardID === props.boardID
+    ).lists.find(list => list.listID === props.listID);
     return { tasks };
 };
 

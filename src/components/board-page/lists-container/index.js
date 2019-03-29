@@ -10,7 +10,7 @@ import CreateListsContainer from "./create-list-container/";
 import SingleList from "./single-list/";
 
 class ListsContainer extends React.Component {
-    onDragEnd = result => this.props.changePlace(result, this.props.boardName);
+    onDragEnd = result => this.props.changePlace(result, this.props.boardID);
 
     render() {
         return (
@@ -19,14 +19,12 @@ class ListsContainer extends React.Component {
                     {this.props.lists.map((item, index) => (
                         <SingleList
                             listName={item.listName}
-                            boardName={this.props.boardName}
+                            boardID={this.props.boardID}
                             key={index}
-                            keyValue={index}
-                            listId={item.listId}
+                            listID={item.listID}
                         />
                     ))}
-
-                    <CreateListsContainer boardName={this.props.boardName} />
+                    <CreateListsContainer boardID={this.props.boardID} />
                 </div>
             </DragDropContext>
         );
@@ -35,7 +33,7 @@ class ListsContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
     const { lists } = state.boardsReducer.boards.find(
-        board => board.boardName === props.boardName
+        board => board.boardID === props.boardID
     );
     return { lists };
 };

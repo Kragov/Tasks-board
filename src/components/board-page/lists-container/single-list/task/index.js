@@ -10,8 +10,8 @@ class Task extends React.Component {
     render() {
         return (
             <Draggable
-                draggableId={this.props.taskId}
-                index={this.props.taskKeyValue}
+                draggableId={this.props.taskID}
+                index={this.props.indexForDraggable}
             >
                 {provided => (
                     <div
@@ -30,11 +30,9 @@ class Task extends React.Component {
                             className="fas fa-check"
                             onClick={() =>
                                 this.props.changeState(
-                                    this.props.boardName,
-                                    this.props.listName,
-                                    this.props.taskName,
-                                    this.props.listKeyValue,
-                                    this.props.taskKeyValue
+                                    this.props.boardID,
+                                    this.props.listID,
+                                    this.props.taskID
                                 )
                             }
                         />

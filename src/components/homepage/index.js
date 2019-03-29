@@ -24,7 +24,7 @@ class Home extends React.Component {
 
                     {this.props.boards.map((item, index) => {
                         return (
-                            <BoardBtn boardName={item.boardName} key={index} />
+                            <BoardBtn boardName={item.boardName} boardID={item.boardID} key={index} />
                         );
                     })}
                 </div>

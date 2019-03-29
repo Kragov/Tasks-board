@@ -2,7 +2,7 @@ import { getLocalState } from "../localStorageActions/";
 
 let defaultState = getLocalState();
 
-if (defaultState === null) {
+if (defaultState === undefined) {
     defaultState = { boards: [], uniqID: 0 };
 }
 
@@ -24,11 +24,11 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_LIST_TO_BOARD") {
         let boards = state.boards.slice();
 
-        let board = boards.find(item => item.boardName === payload.boardName);
+        let board = boards.find(item => item.boardID === payload.boardID);
         board.lists = [
             ...board.lists,
             {
-                listId: payload.listName + "-" + board.lists.length,
+                listID: payload.listName + "-" + board.lists.length,
                 listName: payload.listName,
                 tasks: []
             }
@@ -43,14 +43,14 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_TASK_TO_LIST") {
         let boards = state.boards.slice();
 
-        let board = boards.find(item => item.boardName === payload.boardName);
+        let board = boards.find(item => item.boardID === payload.boardID);
 
-        let lists = board.lists;
+        let list = board.lists.find(item => item.listID === payload.listID);
 
-        lists[payload.keyValue].tasks = [
-            ...lists[payload.keyValue].tasks,
+        list.tasks = [
+            ...list.tasks,
             {
-                taskId: payload.taskName + "-" + state.uniqID,
+                taskID: payload.taskName + "-" + state.uniqID,
                 taskName: payload.taskName,
                 isDone: false
             }
@@ -65,18 +65,27 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "CHANGE_STATE") {
         let boards = state.boards.slice();
 
-        let board = boards.find(item => item.boardName === payload.boardName);
+        let board = boards.find(item => item.boardID === payload.boardID);
 
-        let lists = board.lists;
+        let list = board.lists.find(item => item.listID === payload.listID);
 
-        let tasks = lists[payload.listKey].tasks.slice();
+        let tasks = list.tasks.slice();
 
-        tasks[payload.taskKey] = {
-            taskId: tasks[payload.taskKey].taskId,
-            taskName: tasks[payload.taskKey].taskName,
-            isDone: !tasks[payload.taskKey].isDone
+        let taskIndex = 0;
+        tasks.find((item, index) => {
+            if (item.taskID === payload.taskID) {
+                return (taskIndex = index);
+            }
+        });
+
+        tasks[taskIndex] = {
+            taskID: tasks[taskIndex].taskID,
+            taskName: tasks[taskIndex].taskName,
+            isDone: !tasks[taskIndex].isDone
         };
-        lists[payload.listKey].tasks = tasks;
+        
+        list.tasks = tasks;
+
         return {
             ...state,
             boards: boards
@@ -86,7 +95,7 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "CHANGE_PLACE") {
         let boards = state.boards.slice();
 
-        let board = boards.find(item => item.boardName === payload.boardName);
+        let board = boards.find(item => item.boardID === payload.boardID);
 
         let lists = board.lists;
 
@@ -104,17 +113,17 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
         }
 
         const startList = lists.find(
-            item => item.listId === source.droppableId
+            item => item.listID === source.droppableId
         );
 
         const finishList = lists.find(
-            item => item.listId === destination.droppableId
+            item => item.listID === destination.droppableId
         );
 
         if (startList === finishList) {
             const newTaskIds = startList.tasks;
             const draggableTask = newTaskIds.find(
-                item => item.taskId === draggableId
+                item => item.taskID === draggableId
             );
 
             newTaskIds.splice(source.index, 1);
@@ -125,16 +134,16 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
                 boards: boards
             };
         } else {
-            const startTaskIds = startList.tasks;
-            const draggableTask = startTaskIds.find(
-                item => item.taskId === draggableId
+            const startTaskIDs = startList.tasks;
+            const draggableTask = startTaskIDs.find(
+                item => item.taskID === draggableId
             );
 
-            startTaskIds.splice(source.index, 1);
+            startTaskIDs.splice(source.index, 1);
 
-            const finishTaskIds = finishList.tasks;
+            const finishTaskIDs = finishList.tasks;
 
-            finishTaskIds.splice(destination.index, 0, draggableTask);
+            finishTaskIDs.splice(destination.index, 0, draggableTask);
 
             return {
                 ...state,

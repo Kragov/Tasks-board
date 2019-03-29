@@ -20,7 +20,7 @@ class CreateListContainer extends React.Component {
             <CreateListBtn changeCondition={this.changeCondition} />
         ) : (
             <CreateListInput
-                boardName={this.props.boardName}
+                boardID={this.props.boardID}
                 changeCondition={this.changeCondition}
             />
         );

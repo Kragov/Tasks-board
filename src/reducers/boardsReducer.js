@@ -1,26 +1,24 @@
-let defaultState = {};
+import { getLocalState } from "../localStorageActions/";
 
-if (localStorage.getItem("state") !== null) {
-    defaultState = JSON.parse(localStorage.getItem("state"));
-} else {
-    defaultState = {
-        boards: [],
-        taskIdNumber: 0
-    };
+let defaultState = getLocalState();
+
+if (defaultState === null) {
+    defaultState = { boards: [], uniqID: 0 };
 }
 
 const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_BOARD") {
-        localStorage.setItem(
-            "state",
-            JSON.stringify({
-                ...state,
-                boards: [...state.boards, { boardName: payload, lists: [] }]
-            })
-        );
         return {
             ...state,
-            boards: [...state.boards, { boardName: payload, lists: [] }]
+            boards: [
+                ...state.boards,
+                {
+                    boardID: payload + "-" + state.uniqID,
+                    boardName: payload,
+                    lists: []
+                }
+            ],
+            uniqID: ++state.uniqID
         };
     }
     if (type === "ADD_LIST_TO_BOARD") {
@@ -35,13 +33,6 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
                 tasks: []
             }
         ];
-        localStorage.setItem(
-            "state",
-            JSON.stringify({
-                ...state,
-                boards: boards
-            })
-        );
 
         return {
             ...state,
@@ -59,25 +50,15 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
         lists[payload.keyValue].tasks = [
             ...lists[payload.keyValue].tasks,
             {
-                taskId: payload.taskName + "-" + state.taskIdNumber,
+                taskId: payload.taskName + "-" + state.uniqID,
                 taskName: payload.taskName,
                 isDone: false
             }
         ];
-
-        localStorage.setItem(
-            "state",
-            JSON.stringify({
-                ...state,
-                boards: boards,
-                taskIdNumber: ++state.taskIdNumber
-            })
-        );
-
         return {
             ...state,
             boards: boards,
-            taskIdNumber: ++state.taskIdNumber
+            uniqID: ++state.uniqID
         };
     }
 
@@ -96,14 +77,6 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
             isDone: !tasks[payload.taskKey].isDone
         };
         lists[payload.listKey].tasks = tasks;
-        localStorage.setItem(
-            "state",
-            JSON.stringify({
-                ...state,
-                boards: boards
-            })
-        );
-
         return {
             ...state,
             boards: boards
@@ -129,9 +102,11 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
         ) {
             return { ...state };
         }
+
         const startList = lists.find(
             item => item.listId === source.droppableId
         );
+
         const finishList = lists.find(
             item => item.listId === destination.droppableId
         );
@@ -141,16 +116,9 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
             const draggableTask = newTaskIds.find(
                 item => item.taskId === draggableId
             );
+
             newTaskIds.splice(source.index, 1);
             newTaskIds.splice(destination.index, 0, draggableTask);
-
-            localStorage.setItem(
-                "state",
-                JSON.stringify({
-                    ...state,
-                    boards: boards
-                })
-            );
 
             return {
                 ...state,
@@ -161,17 +129,12 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
             const draggableTask = startTaskIds.find(
                 item => item.taskId === draggableId
             );
-            startTaskIds.splice(source.index, 1);
-            const finishTaskIds = finishList.tasks;
-            finishTaskIds.splice(destination.index, 0, draggableTask);
 
-            localStorage.setItem(
-                "state",
-                JSON.stringify({
-                    ...state,
-                    boards: boards
-                })
-            );
+            startTaskIds.splice(source.index, 1);
+
+            const finishTaskIds = finishList.tasks;
+
+            finishTaskIds.splice(destination.index, 0, draggableTask);
 
             return {
                 ...state,

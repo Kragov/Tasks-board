@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
+import { saveStateToLocalStorage } from "./localStorageActions/";
 
 import Home from "./components/homepage";
 import Board from "./components/board-page/";
@@ -16,6 +17,10 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 );
+
+store.subscribe(() => {
+    saveStateToLocalStorage(store.getState().boardsReducer);
+});
 
 ReactDOM.render(
     <Provider store={store}>

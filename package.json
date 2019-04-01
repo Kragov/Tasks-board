@@ -29,6 +29,7 @@
         "webpack-dev-server": "^3.2.1"
     },
     "dependencies": {
+        "nanoid": "^2.0.1",
         "react": "^16.8.4",
         "react-beautiful-dnd": "^10.1.0",
         "react-dom": "^16.8.4",

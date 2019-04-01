@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import nanoid from "nanoid";
 
 import "./index.scss";
 
@@ -44,7 +45,10 @@ class CreateBoardMenu extends React.Component {
                         <button
                             className="create-btn"
                             onClick={() => {
-                                this.props.addBoard(this.state.newBoardName);
+                                this.props.addBoard(
+                                    this.state.newBoardName,
+                                    "board" + nanoid()
+                                );
                                 this.props.setCondition();
                             }}
                         >

@@ -19,7 +19,7 @@ const store = createStore(
 );
 
 store.subscribe(() => {
-    saveStateToLocalStorage(store.getState().boardsReducer);
+    saveStateToLocalStorage(store.getState());
 });
 
 ReactDOM.render(
@@ -27,7 +27,7 @@ ReactDOM.render(
         <Router history={history}>
             <>
                 <Route path="/" exact component={Home} />
-                <Route path="/board:boardID" component={Board} />
+                <Route path="/board-:boardName" component={Board} />
             </>
         </Router>
     </Provider>,

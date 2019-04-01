@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import nanoid from "nanoid";
 
-import { addList } from "../../../../../actions/boardsActions";
+import { addList } from "../../../../../actions/listsActions";
 
 import "./index.scss";
 
@@ -14,7 +15,7 @@ class CreateListInput extends React.Component {
     }
 
     submitHandler = listName => {
-        this.props.addList(this.props.boardID, listName);
+        this.props.addList(this.props.boardID, listName, this.id);
     };
 
     render() {
@@ -36,7 +37,8 @@ class CreateListInput extends React.Component {
                     onClick={() => {
                         this.props.addList(
                             this.props.boardID,
-                            this.state.listName
+                            this.state.listName,
+                            "list" + nanoid()
                         );
                     }}
                 >

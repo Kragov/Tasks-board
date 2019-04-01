@@ -1,7 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-import { changeState } from "../../../../../actions/boardsActions";
+import { changeCompleteness } from "../../../../../actions/tasksActions";
 
 import "./index.scss";
 import { connect } from "react-redux";
@@ -29,11 +29,7 @@ class Task extends React.Component {
                         <i
                             className="fas fa-check"
                             onClick={() =>
-                                this.props.changeState(
-                                    this.props.boardID,
-                                    this.props.listID,
-                                    this.props.taskID
-                                )
+                                this.props.changeCompleteness(this.props.taskID)
                             }
                         />
                     </div>
@@ -45,5 +41,5 @@ class Task extends React.Component {
 
 export default connect(
     null,
-    { changeState }
+    { changeCompleteness }
 )(Task);

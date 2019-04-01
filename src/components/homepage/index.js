@@ -22,9 +22,13 @@ class Home extends React.Component {
                         />
                     )}
 
-                    {this.props.boards.map((item, index) => {
+                    {this.props.boardsIDs.map((item, index) => {
                         return (
-                            <BoardBtn boardName={item.boardName} boardID={item.boardID} key={index} />
+                            <BoardBtn
+                                boardName={this.props.boards[item].boardName}
+                                boardID={item}
+                                key={index}
+                            />
                         );
                     })}
                 </div>
@@ -35,8 +39,11 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
     const { condition } = state.conditionReducer;
-    const { boards } = state.boardsReducer;
-    return { condition, boards };
+    return {
+        condition,
+        boards: state.boardsReducer.byID,
+        boardsIDs: state.boardsReducer.allIDs
+    };
 };
 
 export default connect(

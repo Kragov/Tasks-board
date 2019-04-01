@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
+import nanoid from "nanoid";
 
-import { addTask } from "../../../../actions/boardsActions";
+import { addTask } from "../../../../actions/tasksActions";
 
 import "./index.scss";
 
@@ -19,9 +20,9 @@ class SingleList extends React.Component {
     submitHanler = e => {
         e.preventDefault();
         this.props.addTask(
-            this.props.boardID,
+            this.props.listID,
             this.state.taskName,
-            this.props.listID
+            "task" + nanoid()
         );
     };
 
@@ -49,15 +50,15 @@ class SingleList extends React.Component {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {this.props.tasks.map((item, index) => (
+                            {this.props.tasksIDs.map((item, index) => (
                                 <Task
                                     boardID={this.props.boardID}
                                     listID={this.props.listID}
-                                    taskID={item.taskID}
-                                    taskName={item.taskName}
+                                    taskID={item}
+                                    taskName={this.props.tasks[item].taskName}
                                     indexForDraggable={index}
                                     key={index}
-                                    isDone={item.isDone}
+                                    isDone={this.props.tasks[item].isDone}
                                 />
                             ))}
                             {provided.placeholder}
@@ -70,10 +71,10 @@ class SingleList extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-    const { tasks } = state.boardsReducer.boards.find(
-        board => board.boardID === props.boardID
-    ).lists.find(list => list.listID === props.listID);
-    return { tasks };
+    return {
+        tasksIDs: state.listsReducer.byID[props.listID].tasks,
+        tasks: state.tasksReducer.byID
+    };
 };
 
 export default connect(

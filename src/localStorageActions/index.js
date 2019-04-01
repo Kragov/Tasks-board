@@ -1,6 +1,20 @@
-export const getLocalState = () => {
-    if (localStorage.getItem("state") !== null) {
-        return JSON.parse(localStorage.getItem("state"));
+const boardsState = JSON.parse(localStorage.getItem("state"));
+
+export const getLocalStateBoards = () => {
+    if (boardsState !== null) {
+        return boardsState.boardsReducer;
+    }
+};
+
+export const getLocalStateLists = () => {
+    if (boardsState !== null) {
+        return boardsState.listsReducer;
+    }
+};
+
+export const getLocalStateTasks = () => {
+    if (boardsState !== null) {
+        return boardsState.tasksReducer;
     }
 };
 

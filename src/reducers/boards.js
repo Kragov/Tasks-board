@@ -1,10 +1,4 @@
-import { getLocalStateBoards } from "../localStorageActions/";
-
-let defaultState = getLocalStateBoards();
-
-if (defaultState === undefined) {
-    defaultState = { byID: {}, allIDs: [] };
-}
+const defaultState = { byID: {} };
 
 const boardsReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_BOARD") {
@@ -18,8 +12,7 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
                     boardName: payload.boardName,
                     lists: []
                 }
-            },
-            allIDs: state.allIDs.concat(payload.boardID)
+            }
         };
     }
 

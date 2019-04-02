@@ -21,12 +21,12 @@ class Home extends React.Component {
                             onClick={() => this.props.setCondition()}
                         />
                     )}
-
-                    {this.props.boardsIDs.map((item, index) => {
+                    {Object.values(this.props.boards).map((item, index) => {
+                        
                         return (
                             <BoardBtn
-                                boardName={this.props.boards[item].boardName}
-                                boardID={item}
+                                boardName={item.boardName}
+                                boardID={item.boardID}
                                 key={index}
                             />
                         );
@@ -41,8 +41,7 @@ const mapStateToProps = state => {
     const { condition } = state.conditionReducer;
     return {
         condition,
-        boards: state.boardsReducer.byID,
-        boardsIDs: state.boardsReducer.allIDs
+        boards: state.boardsReducer.byID
     };
 };
 

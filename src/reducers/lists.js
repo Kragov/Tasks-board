@@ -1,10 +1,4 @@
-import { getLocalStateLists } from "../localStorageActions/";
-
-let defaultState = getLocalStateLists();
-
-if (defaultState === undefined) {
-    defaultState = { byID: {} };
-}
+const defaultState = { byID: {} };
 
 const listsReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_LIST") {

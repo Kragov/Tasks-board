@@ -5,6 +5,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import "./index.scss";
 
 import { changePlace } from "../../../actions/listsActions";
+import {getLists} from '../../../selectors/'
 
 import CreateListsContainer from "./create-list-container/";
 import SingleList from "./single-list/";
@@ -16,12 +17,12 @@ class ListsContainer extends React.Component {
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
                 <div className="lists-container">
-                    {this.props.listsIDs.map((item, index) => (
+                    {this.props.lists.map((item, index) => (
                         <SingleList
-                            listName={this.props.lists[item].listName}
+                            listName={item.listName}
                             boardID={this.props.boardID}
                             key={index}
-                            listID={item}
+                            listID={item.listID}
                         />
                     ))}
                     <CreateListsContainer boardID={this.props.boardID} />
@@ -32,9 +33,9 @@ class ListsContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
+
     return {
-        listsIDs: state.boardsReducer.byID[props.boardID].lists,
-        lists: state.listsReducer.byID
+        lists: getLists(state, props)
     };
 };
 

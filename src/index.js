@@ -12,8 +12,11 @@ import rootReducer from "./rootReducer";
 
 const history = createBrowserHistory();
 
+const initialState = JSON.parse(localStorage.getItem("state")) || {};
+
 const store = createStore(
     rootReducer,
+    initialState,
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__()
 );

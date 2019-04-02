@@ -4,6 +4,7 @@ import { Droppable } from "react-beautiful-dnd";
 import nanoid from "nanoid";
 
 import { addTask } from "../../../../actions/tasksActions";
+import { getTasks } from "../../../../selectors/";
 
 import "./index.scss";
 
@@ -50,15 +51,15 @@ class SingleList extends React.Component {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {this.props.tasksIDs.map((item, index) => (
+                            {this.props.tasks.map((item, index) => (
                                 <Task
                                     boardID={this.props.boardID}
                                     listID={this.props.listID}
-                                    taskID={item}
-                                    taskName={this.props.tasks[item].taskName}
+                                    taskID={item.taskID}
+                                    taskName={item.taskName}
                                     indexForDraggable={index}
                                     key={index}
-                                    isDone={this.props.tasks[item].isDone}
+                                    isDone={item.isDone}
                                 />
                             ))}
                             {provided.placeholder}
@@ -72,8 +73,7 @@ class SingleList extends React.Component {
 
 const mapStateToProps = (state, props) => {
     return {
-        tasksIDs: state.listsReducer.byID[props.listID].tasks,
-        tasks: state.tasksReducer.byID
+        tasks: getTasks(state, props)
     };
 };
 

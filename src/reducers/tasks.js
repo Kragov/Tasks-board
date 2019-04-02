@@ -1,10 +1,4 @@
-import { getLocalStateTasks } from "../localStorageActions/";
-
-let defaultState = getLocalStateTasks();
-
-if (defaultState === undefined) {
-    defaultState = { byID: {} };
-}
+const defaultState = { byID: {} };
 
 const tasksReducer = (state = defaultState, { type, payload }) => {
     if (type === "ADD_TASK") {

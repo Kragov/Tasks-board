@@ -1,0 +1,29 @@
+@import "../../../../../utilities/vars.scss";
+
+.task-container {
+    display: flex;
+    margin: 10px 0;
+    padding: 14px 7px;
+    box-shadow: $Bshad;
+    border-radius: $Brad;
+    font-family: $OSans;
+    justify-content: space-around;
+    background-color: rgb(202, 255, 222);
+    cursor: grab;
+
+    h3 {
+        display: block;
+        font-size: 19px;
+        font-weight: bold;
+    }
+
+    i {
+        display: block;
+        cursor: pointer;
+    }
+}
+
+.task-done {
+    background-color: rgb(167, 167, 167);
+    text-decoration: line-through;
+}

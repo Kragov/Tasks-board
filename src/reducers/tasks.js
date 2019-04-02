@@ -1,7 +1,9 @@
+import { ADD_TASK, CHANGE_COMPLETENESS } from "../action-types/actionTypes";
+
 const defaultState = { byID: {} };
 
 const tasksReducer = (state = defaultState, { type, payload }) => {
-    if (type === "ADD_TASK") {
+    if (type === ADD_TASK) {
         const tasks = state.byID;
         return {
             ...state,
@@ -16,7 +18,7 @@ const tasksReducer = (state = defaultState, { type, payload }) => {
         };
     }
 
-    if (type === "CHANGE_COMPLETENESS") {
+    if (type === CHANGE_COMPLETENESS) {
         const tasks = state.byID;
         const task = state.byID[payload];
 

@@ -1,7 +1,9 @@
+import { ADD_BOARD, ADD_LIST } from "../action-types/actionTypes";
+
 const defaultState = { byID: {} };
 
 const boardsReducer = (state = defaultState, { type, payload }) => {
-    if (type === "ADD_BOARD") {
+    if (type === ADD_BOARD) {
         const boards = state.byID;
         return {
             ...state,
@@ -16,7 +18,7 @@ const boardsReducer = (state = defaultState, { type, payload }) => {
         };
     }
 
-    if (type === "ADD_LIST") {
+    if (type === ADD_LIST) {
         const boards = state.byID;
         const board = state.byID[payload.boardID];
         return {

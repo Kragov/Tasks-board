@@ -1,7 +1,9 @@
+import { ADD_LIST, ADD_TASK, CHANGE_PLACE } from "../action-types/actionTypes";
+
 const defaultState = { byID: {} };
 
 const listsReducer = (state = defaultState, { type, payload }) => {
-    if (type === "ADD_LIST") {
+    if (type === ADD_LIST) {
         const lists = state.byID;
         return {
             ...state,
@@ -16,7 +18,7 @@ const listsReducer = (state = defaultState, { type, payload }) => {
         };
     }
 
-    if (type === "ADD_TASK") {
+    if (type === ADD_TASK) {
         const lists = state.byID;
         const list = state.byID[payload.listID];
         return {
@@ -31,7 +33,7 @@ const listsReducer = (state = defaultState, { type, payload }) => {
         };
     }
 
-    if (type === "CHANGE_PLACE") {
+    if (type === CHANGE_PLACE) {
         const { destination, source, draggableId } = payload.result;
         const startListTasks = state.byID[source.droppableId].tasks.slice();
         const finishListTasks = state.byID[

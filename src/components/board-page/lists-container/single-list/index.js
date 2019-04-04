@@ -20,26 +20,17 @@ class SingleList extends React.Component {
 
     submitHanler = e => {
         e.preventDefault();
-        this.props.addTask(
-            this.props.listID,
-            this.state.taskName,
-            "task" + nanoid()
-        );
+        this.props.addTask(this.props.listID, this.state.taskName, "task" + nanoid());
     };
 
     render() {
         return (
             <div className="list-container">
                 <h3 className="list-name">{this.props.listName}</h3>
-                <form
-                    className="list-input"
-                    onSubmit={e => this.submitHanler(e)}
-                >
+                <form className="list-input" onSubmit={e => this.submitHanler(e)}>
                     <input
                         type="text"
-                        onChange={e =>
-                            this.setState({ taskName: e.target.value })
-                        }
+                        onChange={e => this.setState({ taskName: e.target.value })}
                     />
                     <input type="submit" />
                 </form>
@@ -51,15 +42,15 @@ class SingleList extends React.Component {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                         >
-                            {this.props.tasks.map((item, index) => (
+                            {this.props.tasksIDs.map((item, index) => (
                                 <Task
                                     boardID={this.props.boardID}
                                     listID={this.props.listID}
-                                    taskID={item.taskID}
-                                    taskName={item.taskName}
+                                    taskID={this.props.tasks[item].taskID}
+                                    taskName={this.props.tasks[item].taskName}
                                     indexForDraggable={index}
                                     key={index}
-                                    isDone={item.isDone}
+                                    isDone={this.props.tasks[item].isDone}
                                 />
                             ))}
                             {provided.placeholder}
@@ -73,7 +64,8 @@ class SingleList extends React.Component {
 
 const mapStateToProps = (state, props) => {
     return {
-        tasks: getTasks(state, props)
+        tasksIDs: state.listsReducer.byID[props.listID].tasks,
+        tasks: state.tasksReducer.byID
     };
 };
 
